@@ -1,0 +1,51 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+    id 'org.jetbrains.intellij' version '0.4.21'
+}
+
+group 'com.pandora.plugin'
+version '1.0.1'
+
+patchPluginXml {
+    changeNotes """
+    <ul>
+      <li>1.0: Initial version of the Build Variant Quick-Selector for Android Studio.</li>
+    </ul>
+    """
+}
+
+intellij {
+    // Define IntelliJ Platform against which to build the plugin project.
+    version '193.6911.18'  // Same IntelliJ IDEA version (2019.1.4) as target 3.5 Android Studio
+    type 'IC'              // Use IntelliJ IDEA CE because it's the basis of the IntelliJ Platform   
+    // Require the Android plugin, Gradle will match the plugin version to intellij.version 
+    plugins 'android'
+    updateSinceUntilBuild false
+}
+
+runIde {
+    // Absolute path to installed target 3.5 Android Studio to use as IDE Development Instance
+    // The "Contents" directory is macOS specific.
+    ideDirectory '/Applications/Android Studio.app/Contents'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
+
+publishPlugin {
+    token project.properties['jetbrains.publish.token']
+}

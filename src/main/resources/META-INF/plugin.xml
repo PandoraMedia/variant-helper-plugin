@@ -1,0 +1,39 @@
+<!--
+    * Copyright 2020 Pandora Media, LLC
+    *
+    * Licensed under the Apache License, Version 2.0 (the "License");
+    * you may not use this file except in compliance with the License.
+    * See accompanying LICENSE file or you may obtain a copy of the License at
+    *
+    *    http://www.apache.org/licenses/LICENSE-2.0
+    *
+    * Unless required by applicable law or agreed to in writing, software
+    * distributed under the License is distributed on an "AS IS" BASIS,
+    * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    * See the License for the specific language governing permissions and
+    * limitations under the License.
+-->
+<idea-plugin>
+    <id>com.pandora.plugins.build_variant_selector</id>
+    <name>Build Variant Quick-Selector</name>
+    <vendor url="http://www.pandora.com">Pandora Media, Inc.</vendor>
+    <idea-version since-build="191"/>
+
+    <description><![CDATA[
+    This Android Studio plugin changes the selected Build Variant on all modules in a project
+    ]]></description>
+
+    <depends>org.jetbrains.android</depends>
+    <depends>com.intellij.modules.androidstudio</depends>
+
+    <actions>
+        <action id="SwitchBuildVariantAction"
+                class="com.pandora.plugin.actions.SwitchBuildVariant"
+                text="Switch All Build Variants...">
+            <add-to-group group-id="GradleProjectStructureActions"
+                          anchor="after"
+                          relative-to-action="SelectBuildVariant" />
+            <keyboard-shortcut keymap="$default" first-keystroke="meta shift V"/>
+        </action>
+    </actions>
+</idea-plugin>
