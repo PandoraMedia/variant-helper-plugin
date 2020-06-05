@@ -21,4 +21,8 @@ This plugin adds a new *Switch All Build Variants...* menu action right after *S
 - Select a fully-qualified variant name for each type listed
 - Wait for any `Gradle` sync to complete
 
+![Menu location of command](screenshots/switch_menu.png?raw=true)
+
+![Variant selection dialog](screenshots/variant_selection.png?raw=true)
+
 The plugin invokes the same updates as a single variant change from the `Build Variants` tool window.
