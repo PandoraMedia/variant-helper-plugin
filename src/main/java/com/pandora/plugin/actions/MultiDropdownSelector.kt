@@ -35,10 +35,12 @@ class MultiDropdownSelector(
 ) : DialogWrapper(project) {
     private var dropDowns = mutableListOf<JComboBox<String>>()
 
-    private val allItems = items
+    private val allItems = items.toList()
 
-    val selectedItems: List<String>
-        get() = dropDowns.map { it.selectedItem as String }
+    val selectedItems: Map<String, List<String>>
+        get() = dropDowns.mapIndexed { index: Int, it: JComboBox<String> ->
+            it.selectedItem as String to allItems[index]
+        }.toMap()
 
     init {
         this.title = title
@@ -67,11 +69,11 @@ class MultiDropdownSelector(
             items: Set<List<String>>,
             project: Project,
             title: String
-        ): List<Any> {
+        ): Map<String, List<String>> {
             val dialog = MultiDropdownSelector(items, project, title)
             dialog.show()
 
-            return if (dialog.isOK) dialog.selectedItems else emptyList()
+            return if (dialog.isOK) dialog.selectedItems else emptyMap()
         }
     }
 }
