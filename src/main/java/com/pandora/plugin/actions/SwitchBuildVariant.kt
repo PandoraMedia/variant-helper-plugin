@@ -9,6 +9,7 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.module.ModuleManager
+import com.jetbrains.rd.util.firstOrNull
 
 private const val title = "Select Build Variants:"
 
@@ -31,13 +32,13 @@ class SwitchBuildVariant : AnAction() {
         }
         //Let Gradle and Android Studio give their best effort for determine all the necessary changes, first.
         knownLeafModules.forEach { module ->
-            module.variantItems.buildVariants.firstOrNull { variant -> dialogResult.contains(variant) }?.run {
+            module.variantItems.buildVariants.findSelection(dialogResult)?.run {
                 updater.update(project, module.name, this)
             }
         }
 
         moduleManager.modules.forEach { module ->
-            module.variantItems.buildVariants.firstOrNull { variant -> dialogResult.contains(variant) }?.run {
+            module.variantItems.buildVariants.findSelection(dialogResult)?.run {
                 updater.update(project, module.name, this)
             }
         }
@@ -51,3 +52,9 @@ class SwitchBuildVariant : AnAction() {
 
     private data class ModuleBuildVariant(val moduleName: String, val buildVariants: List<String>)
 }
+
+/**
+ * First try to match the full-list of variants to get the selected key for that list, then fallback to a best effort.
+ */
+private fun List<String>.findSelection(dialogResult: Map<String, List<String>>) =
+    dialogResult.entries.firstOrNull { this == it.value }?.key ?: firstOrNull { dialogResult.keys.contains(it) }
