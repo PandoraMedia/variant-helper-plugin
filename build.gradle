@@ -11,13 +11,14 @@ plugins {
 }
 
 group 'com.pandora.plugin'
-version '1.1.0'
+version '1.2.0'
 
 patchPluginXml {
     changeNotes """
     <ul>
       <li>1.0: Initial version of the Build Variant Quick-Selector for Android Studio.</li>
       <li>1.1.0: Bug fix for Issue #2, related to multiple modules with named build types that match.</li>
+      <li>1.2.0: Bug fix for Issues #4 and #5, related to IntelliJ compatibility and NDK variant visibility in Android Studio 4.1.</li>
     </ul>
     """
 }
