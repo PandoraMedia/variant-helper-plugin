@@ -24,7 +24,6 @@
     ]]></description>
 
     <depends>org.jetbrains.android</depends>
-    <depends>com.intellij.modules.androidstudio</depends>
 
     <actions>
         <action id="SwitchBuildVariantAction"
