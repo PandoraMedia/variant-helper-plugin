@@ -3,6 +3,7 @@ package com.pandora.plugin.actions
 import com.android.tools.idea.gradle.project.ProjectStructure
 import com.android.tools.idea.gradle.project.model.AndroidModuleModel
 import com.android.tools.idea.gradle.project.model.NdkModuleModel
+import com.android.tools.idea.gradle.project.model.fetchVariantNames
 import com.android.tools.idea.gradle.variant.view.BuildVariantUpdater
 import com.android.tools.idea.gradle.variant.view.update
 import com.intellij.openapi.actionSystem.AnAction
@@ -45,10 +46,10 @@ class SwitchBuildVariant : AnAction() {
     }
 
     private val Module.variantNames: Collection<String?>
-        get() = NdkModuleModel.get(this)?.ndkVariantNames ?: AndroidModuleModel.get(this)?.variantNames ?: emptyList()
+        get() = NdkModuleModel.get(this)?.fetchVariantNames() ?: AndroidModuleModel.get(this)?.variantNames ?: emptyList()
 
     private val Module.variantItems: ModuleBuildVariant
-        get() = ModuleBuildVariant(name, variantNames.asSequence().filterNotNull().sorted().toList())
+        get() = ModuleBuildVariant(name, variantNames.asSequence().distinct().filterNotNull().sorted().toList())
 
     private data class ModuleBuildVariant(val moduleName: String, val buildVariants: List<String>)
 }
