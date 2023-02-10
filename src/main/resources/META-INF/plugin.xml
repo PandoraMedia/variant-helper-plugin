@@ -17,7 +17,7 @@
     <id>com.pandora.plugins.build_variant_selector</id>
     <name>Build Variant Quick-Selector</name>
     <vendor url="http://www.pandora.com">Pandora Media, Inc.</vendor>
-    <idea-version since-build="191"/>
+    <idea-version since-build="223.4884.69" />
 
     <description><![CDATA[
     This Android Studio plugin changes the selected Build Variant on all modules in a project

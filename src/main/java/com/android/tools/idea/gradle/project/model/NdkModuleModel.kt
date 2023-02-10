@@ -1,8 +1,11 @@
 package com.android.tools.idea.gradle.project.model
 
+import java.util.*
+
 fun NdkModuleModel.fetchVariantNames(): Collection<String?> {
+    val ndkVariantNames = Collections.emptySet<String>()
     return try {
-        ndkVariantNames
+        allVariantAbis.map{ it.displayName }.toCollection(ndkVariantNames)
     } catch (_: NoSuchMethodError) {
         // Method is no longer accessible so try to get it via reflection
         val variants = javaClass.methods.find { it.name == "getAllVariantAbis" }?.invoke(this) as? Set<*>

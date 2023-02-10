@@ -22,7 +22,7 @@ class SwitchBuildVariant : AnAction() {
         val updater = BuildVariantUpdater.getInstance(project)
         val moduleManager = ModuleManager.getInstance(project)
 
-        val knownLeafModules = structure.leafModules
+        val knownLeafModules = structure.leafHolderModules
         val groupings = moduleManager.modules.map { it.variantItems }
             .filterNot { it.buildVariants.isEmpty() }
             .associateBy { it.buildVariants }
@@ -46,7 +46,7 @@ class SwitchBuildVariant : AnAction() {
     }
 
     private val Module.variantNames: Collection<String?>
-        get() = NdkModuleModel.get(this)?.fetchVariantNames() ?: AndroidModuleModel.get(this)?.variantNames ?: emptyList()
+        get() = NdkModuleModel.get(this)?.fetchVariantNames() ?: emptyList()
 
     private val Module.variantItems: ModuleBuildVariant
         get() = ModuleBuildVariant(name, variantNames.asSequence().distinct().filterNotNull().sorted().toList())
